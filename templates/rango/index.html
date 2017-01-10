@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rango</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+    <br />
+
+<H1>Rango says...</H1>
+<div>
+    <strong>{{ message }}</strong>
+    <a href="{% url 'rango:add_category' %}">add new category</a></br>
+    {% if categories %}
+    <ol>
+        {% for category in categories %}
+            <li><a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ol>
+    {% else %}
+        <strong>There are no categories</strong>
+    {% endif %}
+
+</div>
+<div>
+    <a href="{% url 'rango:about' %}">About</a>
+    <img src="{% static 'images/rango.jpg' %}" />
+</div>
+</body>
+</html>
